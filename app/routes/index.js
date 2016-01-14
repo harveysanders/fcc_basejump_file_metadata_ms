@@ -2,6 +2,8 @@
 
 var path = process.cwd();
 // var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var multer  = require('multer');
+var upload = multer({dest: 'uploads/'});
 var fileUploadHandler = require(path + '/app/controllers/fileUploadHandler.server.js');
 var fileUploadHandler = fileUploadHandler();
 
@@ -18,12 +20,12 @@ module.exports = function (app, passport) {
 	// var clickHandler = new ClickHandler();
 	
 	app.route('/')
-		.get(isLoggedIn, function (req, res) {
+		.get(function (req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
 
 	app.route('/api/fileanalyze')
-		.post(fileUploadHandler.getFileSize);
+		.post(upload.single('userFile'), fileUploadHandler.getFileSize); //'userFile' has to match name property on file <input> element
 
 	// app.route('/login')
 	// 	.get(function (req, res) {
