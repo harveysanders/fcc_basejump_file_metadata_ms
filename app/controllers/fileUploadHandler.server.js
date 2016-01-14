@@ -3,7 +3,9 @@
 function fileUploadHandler() {
 	return {
 		getFileSize: function(req, res) {
-			res.send('request received.');
+			
+			console.log(req.file);
+			res.json(req.file.size);
 		}
 	};
 }
