@@ -4,22 +4,48 @@
 	var output = document.querySelector('.output');
 	var fileToUpload = document.querySelector('#file-to-upload');
 
-	form.addEventListener('submit', function(event) {
+	//jQuery version
+	$(form).on('submit', function(event) {
+		event.stopPropagation();
 		event.preventDefault();
 
-		var formData = new FormData();
-		formData.append('userFile', fileToUpload.files[0], fileToUpload.files[0].name);
-		console.log(formData);
-		var request = new XMLHttpRequest();
-		request.open("POST", apiUrl, true);
-		request.onload = function(oEvent) {
-			if (request.status === 200) {
-				output.innerHTML = "Uploaded!";
-			} else {
-				output.innerHTML = "Error " + request.status + " occurred when trying to upload your file.<br \/>";
+		var data = new FormData;
+		data.append('userFile', fileToUpload.files[0], fileToUpload.files[0].name);
+
+		$.ajax({
+			url: apiUrl,
+			type: 'POST',
+			data: data,
+			cache: false,
+			dataType: 'json',
+			processData: false,
+			contentType: false,
+			success: function(response, textStatus, jqXHR) {
+				output.innerHTML = 'Uploaded file size: ' + response + ' bytes.';
 			}
-		};
-		request.send(formData);
-	}, false); //useCapture?
+		});
+	});
+
+	//Vanilla JS version
+	// form.addEventListener('submit', function(event) {
+	// 	event.preventDefault();
+
+	// 	var formData = new FormData();
+	// 	formData.append('userFile', fileToUpload.files[0], fileToUpload.files[0].name);
+	// 	console.log(formData);
+	// 	var request = new XMLHttpRequest();
+	// 	request.open("POST", apiUrl, true);
+	// 	request.onload = function(oEvent) {
+	// 		if (request.status === 200) {
+	// 			console.log("File Uploaded!");
+	// 		} else {
+	// 			console.log("Error " + request.status + " occurred when trying to upload your file.<br \/>");
+	// 		}
+	// 	};
+	// 	request.send(formData);
+	// }, false); //useCapture?
+
+
+
 
 })();
