@@ -3,11 +3,12 @@
 <head>
 	<title>FCC Image Upload Service</title>
 	<link rel="stylesheet" type="text/css" href="//localhost:8081/bootstrap.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
 <body>
-	<form action="" enctype="multipart/form-data" method="post" name="file-upload-form">
+	<form action="" enctype="multipart/form-data" method="post" name="file-upload-form" id="file-upload-form">
 		<p>Choose a file to upload.</p>
-		<input type="file" name="datafile" id="file-input"></input>
+		<input type="file" name="userFile" id="file-to-upload"></input>
 		<input type="submit" value="Upload" id="upload-btn"></input>
 	</form>
 	<script type="text/javascript" src="/common/ajax-functions.js"></script>
